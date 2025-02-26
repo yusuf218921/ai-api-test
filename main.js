@@ -1,33 +1,26 @@
 import readline from "readline/promises";
 import { stdin as input, stdout as output } from "process";
-import { deepSeekV3Test } from "./deepSeekV3Test.js";
-import { chatGPT4oTest } from "./chatGPT4oTest.js";
+import dotenv from "dotenv";
+import { chatCompletionApiTest } from "./openAiApiTest.js";
 
 const rl = readline.createInterface({ input, output });
+dotenv.config();
 
 console.log("Test edeceğiniz yapay zekayı Seçin");
 console.log("1) ChatGPT-4o");
-console.log("2) DeepSeek V3");
-console.log("3) Gemini 1.5");
-console.log("4) Claude 3.5 sonnet");
+console.log("2) ChatGPT-4o mini");
 
-const selection = await rl.question("Seçiminizi yapın (1-4): ");
+const selection = await rl.question("Seçiminizi yapın (1-2): ");
 
 switch (selection) {
   case "1":
-    await chatGPT4oTest(rl);
+    await chatCompletionApiTest(rl, "gpt-4o");
     break;
   case "2":
-    await deepSeekV3Test(rl);
-    break;
-  case "3":
-    console.log("Bu program bir Node.js konsol uygulamasıdır.");
-    break;
-  case "4":
-    console.log("Çıkış yapılıyor...");
+    await chatCompletionApiTest(rl, "gpt-4o-mini");
     break;
   default:
-    console.log("Geçersiz seçim! Lütfen 1-4 arasında bir değer girin.");
+    console.log("Geçersiz seçim! Lütfen 1-5 arasında bir değer girin.");
 }
 
 rl.close();
